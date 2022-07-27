@@ -18,13 +18,18 @@ public class LaptopPage extends BasePage{
         topBar = new TopBar(driver);
     }
 
-    public LaptopPage clickOnAddButton(){
+    public LaptopPage clickOnAddButton() throws InterruptedException {
         addButton.click();
-        try {
-            driver.switchTo().alert().accept();
-        }
-        catch (NoAlertPresentException exception) {
-
+        boolean repeat = true;
+        while(repeat) {
+            try {
+                driver.switchTo().alert().accept();
+                repeat = false;
+                System.out.println("alert shown");
+            } catch (NoAlertPresentException exception) {
+                System.out.println("alert not shown");
+                driver.wait();
+            }
         }
         return this;
     }
